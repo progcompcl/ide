@@ -14,7 +14,7 @@ class CppCompiler {
         statusManager.setStatus('Loading C++ compiler...', 'warning');
         outputManager.addOutput('Loading compiler...');
 
-        const baseUrl = window.BASE_URL || '';
+        const baseUrl = window.BASE_URL || '/';
         console.log('[CppCompiler] Creating Worker from compiler_worker.js with base:', baseUrl);
         this.worker = new Worker(`${baseUrl}/scripts/compiler_worker.js`);
         console.log('[CppCompiler] Worker created');
@@ -195,11 +195,11 @@ class CppCompiler {
 }
 
 // Global compiler instance
-const cppCompiler = new CppCompiler();
+window.cppCompiler = new CppCompiler();
 
 // Cleanup on page unload
 window.addEventListener('beforeunload', () => {
-    if (cppCompiler) {
-        cppCompiler.terminate();
+    if (window.cppCompiler) {
+        window.cppCompiler.terminate();
     }
 });

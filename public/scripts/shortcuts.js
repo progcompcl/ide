@@ -77,10 +77,13 @@ class ShortcutsManager {
     }
 
     setupModalEvents() {
-        // Open modal button
-        document.getElementById('shortcuts-btn').addEventListener('click', () => {
-            this.openModal();
-        });
+        // Open modal button (if exists)
+        const shortcutsBtn = document.getElementById('shortcuts-btn');
+        if (shortcutsBtn) {
+            shortcutsBtn.addEventListener('click', () => {
+                this.openModal();
+            });
+        }
 
         // Close modal button
         document.getElementById('close-shortcuts').addEventListener('click', () => {
