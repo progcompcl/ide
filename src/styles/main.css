@@ -1,0 +1,998 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0a0a0a;
+    color: #e0e0e0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#all {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.horiz {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== CLEAN NAVBAR ===== */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    background: linear-gradient(180deg, #1e1e1e 0%, #161616 100%);
+    border-bottom: 1px solid #333333;
+    height: 56px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.navbar-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* ===== CLEAN BUTTON SYSTEM ===== */
+.primary-btn,
+button.primary-btn,
+#run {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(40, 167, 69, 0.2);
+    min-width: 90px;
+    justify-content: center;
+    outline: none !important;
+    box-sizing: border-box;
+}
+
+.primary-btn:focus,
+button.primary-btn:focus,
+#run:focus {
+    outline: none !important;
+    border: 1px solid rgba(40, 167, 69, 0.5) !important;
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2) !important;
+}
+
+/* Remove ALL possible blue borders */
+button:focus,
+button:active,
+button:hover {
+    outline: none !important;
+    border-color: rgba(40, 167, 69, 0.5) !important;
+}
+
+/* Remove browser defaults */
+* {
+    box-sizing: border-box;
+}
+
+button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.primary-btn:hover {
+    background: linear-gradient(135deg, #218838 0%, #1ea085 100%);
+    border-color: rgba(40, 167, 69, 0.5);
+    box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
+}
+
+.primary-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(40, 167, 69, 0.2);
+}
+
+.primary-btn .icon {
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+}
+
+.primary-btn .btn-text {
+    letter-spacing: 0.2px;
+}
+
+/* Secondary Button */
+.secondary-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 90px;
+    justify-content: center;
+}
+
+.secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.secondary-btn:active {
+    transform: translateY(1px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== BRANDING ===== */
+.branding {
+    font-size: 16px;
+    font-weight: 500;
+    color: #a0a0a0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    letter-spacing: 0.5px;
+    text-transform: lowercase;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.branding:hover {
+    opacity: 1;
+    color: #d0d0d0;
+}
+
+.branding::before {
+    content: '🐼';
+    margin-right: 6px;
+    font-size: 14px;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.branding:hover::before {
+    opacity: 1;
+}
+
+/* Disabled State */
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+button:disabled::before {
+    display: none;
+}
+
+/* ===== CLEAN STATUS CONTAINER (NO ANIMATIONS) ===== */
+.status-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(30, 30, 30, 0.2) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    width: 240px;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    flex-shrink: 0;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #3fb950;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px rgba(63, 185, 80, 0.5);
+}
+
+.status-indicator.error {
+    background: #f85149;
+    box-shadow: 0 0 8px rgba(248, 81, 73, 0.5);
+}
+
+.status-indicator.warning {
+    background: #d29922;
+    box-shadow: 0 0 8px rgba(210, 153, 34, 0.5);
+}
+
+.status-indicator.success {
+    background: #3fb950;
+    box-shadow: 0 0 8px rgba(63, 185, 80, 0.5);
+}
+
+.status-text {
+    font-size: 13px;
+    color: #e0e0e0;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    text-transform: capitalize;
+}
+
+
+/* Icon Buttons */
+.icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: #2a2a2a;
+    border: 1px solid #3e3e42;
+    border-radius: 8px;
+    color: #ccc;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 16px;
+}
+
+.icon-btn:hover {
+    background: #333333;
+    border-color: #4a4a4e;
+    color: #e0e0e0;
+}
+
+.icon-btn:active {
+    background: #1a1a1a;
+}
+
+
+/* Legacy toolbar styles for backward compatibility */
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    background-color: #141414;
+    border-bottom: 1px solid #2a2a2a;
+    height: 35px;
+    box-sizing: border-box;
+}
+
+.toolbar-left, .toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.separator {
+    width: 1px;
+    height: 20px;
+    background-color: #2a2a2a;
+    margin: 0 4px;
+}
+
+.primary-btn {
+    background-color: #0078d4;
+    color: #ffffff;
+    border: 1px solid #0078d4;
+    padding: 6px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 400;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.primary-btn:hover {
+    background-color: #106ebe;
+    border-color: #106ebe;
+}
+
+.primary-btn:active {
+    background-color: #005a9e;
+    border-color: #005a9e;
+}
+
+.primary-btn .icon {
+    font-size: 12px;
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: #cccccc;
+    border: 1px solid #3e3e42;
+    padding: 6px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 400;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.secondary-btn:hover {
+    background-color: #3e3e42;
+    border-color: #858585;
+}
+
+.secondary-btn:active {
+    background-color: #2d2d2d;
+}
+
+.secondary-btn .icon {
+    font-size: 12px;
+}
+
+button:disabled {
+    background-color: #3c3c3c;
+    color: #858585;
+    border-color: #3c3c3c;
+    cursor: not-allowed;
+}
+
+select {
+    background-color: #3c3c3c;
+    color: #cccccc;
+    border: 1px solid #3e3e42;
+    padding: 4px 8px;
+    border-radius: 2px;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+}
+
+select:focus {
+    border-color: #0078d4;
+    box-shadow: 0 0 0 1px #0078d4;
+}
+
+#status {
+    font-size: 13px;
+    color: #4fc1ff;
+    font-weight: 400;
+    min-width: 200px;
+    text-align: right;
+}
+
+#status.error {
+    color: #f85149;
+}
+
+#status.warning {
+    color: #d29922;
+}
+
+#status.success {
+    color: #3fb950;
+}
+
+.branding {
+    font-size: 13px;
+    font-weight: 500;
+    color: #0078d4;
+    padding: 4px 8px;
+    background: linear-gradient(135deg, rgba(0, 120, 212, 0.1) 0%, rgba(0, 120, 212, 0.05) 100%);
+    border-radius: 4px;
+    border: 1px solid rgba(0, 120, 212, 0.3);
+    letter-spacing: 0.5px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+#layout {
+    flex: 1;
+    position: relative;
+}
+
+.ace_editor {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+    font-size: 14px !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+/* Hide ALL scrollbars - COMPLETAMENTE */
+.ace_scrollbar-v,
+.ace_scrollbar-h,
+.ace_scrollbar,
+.ace_scrollbar-inner,
+.ace_scrollbar-track,
+.ace_scrollbar-thumb {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.ace_content {
+    overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+.ace_scroller {
+    overflow: hidden !important;
+}
+
+/* Remove duplicate scrollbar from editor container */
+.editor-pane {
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+.terminal-container {
+    background-color: #000;
+    height: 100%;
+    padding: 8px;
+}
+
+.xterm {
+    height: 100% !important;
+}
+
+.xterm .xterm-viewport {
+    overflow-y: hidden !important;
+}
+
+.split-pane {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    position: relative;
+}
+
+.editor-pane {
+    flex: 1;
+    min-width: 300px;
+    overflow: hidden !important;
+}
+
+.resizer {
+    width: 5px;
+    background-color: #2a2a2a;
+    cursor: col-resize;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+.resizer:hover {
+    background-color: #0078d4;
+}
+
+.resizer.resizing {
+    background-color: #0078d4;
+}
+
+.internal-resizer {
+    height: 5px;
+    background-color: #2a2a2a;
+    cursor: row-resize;
+    position: relative;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+}
+
+.internal-resizer:hover {
+    background-color: #0078d4;
+}
+
+.internal-resizer.resizing {
+    background-color: #0078d4;
+}
+
+.output-pane {
+    flex: 0 0 400px;
+    background-color: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    overflow: hidden;
+    border-left: 1px solid #2a2a2a;
+}
+
+.input-section {
+    flex: 0 0 120px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.input-header {
+    padding: 8px 16px;
+    background-color: #141414;
+    font-size: 12px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.output-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 100px;
+}
+
+.output-header {
+    padding: 8px 16px;
+    background-color: #141414;
+    font-size: 12px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.output-tabs {
+    display: flex;
+    background-color: #141414;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.output-tab {
+    padding: 8px 16px;
+    cursor: pointer;
+    background-color: #141414;
+    font-size: 12px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.output-tab:hover {
+    color: #cccccc;
+    background-color: #1a1a1a;
+}
+
+.output-tab.active {
+    color: #0078d4;
+    border-bottom-color: #0078d4;
+    background-color: #0a0a0a;
+}
+
+.tab-panels {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.tab-panel {
+    flex: 1;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.tab-panel.active {
+    display: flex;
+}
+
+.output-content {
+    flex: 1;
+    width: 100%;
+    height: 0; /* Force flex child to respect flex-grow */
+    min-height: 50px;
+    padding: 12px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 12px;
+    background-color: #0a0a0a;
+    color: #f0f0f0; /* Blanco para todo el output */
+    border: none;
+    outline: none;
+    resize: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: #555 #1a1a1a;
+}
+
+.system-content {
+    flex: 1;
+    width: 100%;
+    height: 0; /* Force flex child to respect flex-grow */
+    min-height: 50px;
+    padding: 12px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 12px;
+    background-color: #0a0a0a;
+    color: #f0f0f0; /* Blanco para todo el output */
+    border: none;
+    outline: none;
+    resize: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: #555 #1a1a1a;
+}
+
+.compilation-output {
+    color: #fff;
+}
+
+.compilation-error {
+    color: #ff6b6b;
+    font-weight: 500;
+}
+
+.compilation-warning {
+    color: #ffd93d;
+    font-weight: 500;
+}
+
+.compilation-success {
+    color: #6bcf7f;
+    font-weight: 500;
+}
+
+.compiler-message {
+    color: #858585;
+}
+
+.program-output {
+    color: #f0f0f0;
+}
+
+.file-info {
+    font-size: 11px;
+    color: #888;
+    padding: 4px 12px;
+    background-color: #141414;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.stdin-input {
+    flex: 1;
+    width: 100%;
+    background-color: #0a0a0a;
+    color: #e0e0e0;
+    border: none;
+    padding: 12px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 13px;
+    resize: none;
+    outline: none;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.stdin-input::placeholder {
+    color: #666;
+}
+
+.stdin-input:focus {
+    background-color: #0f0f0f;
+}
+
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #2d2d2d;
+    border: 1px solid #3e3e42;
+    border-radius: 4px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #3e3e42;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #252526;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #cccccc;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #cccccc;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+    background-color: #3e3e42;
+}
+
+.modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-description {
+    margin: 0 0 20px 0;
+    color: #858585;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.shortcuts-list {
+    display: grid;
+    gap: 12px;
+}
+
+.shortcut-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background-color: #1e1e1e;
+    border: 1px solid #3e3e42;
+    border-radius: 4px;
+    transition: border-color 0.2s;
+}
+
+.shortcut-item:hover {
+    border-color: #0078d4;
+}
+
+.shortcut-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.shortcut-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #cccccc;
+}
+
+.shortcut-description {
+    font-size: 12px;
+    color: #858585;
+}
+
+.shortcut-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.shortcut-input {
+    background-color: #3c3c3c;
+    border: 1px solid #3e3e42;
+    color: #cccccc;
+    padding: 6px 12px;
+    border-radius: 2px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 13px;
+    min-width: 150px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.shortcut-input:hover {
+    border-color: #0078d4;
+}
+
+.shortcut-input:focus {
+    outline: none;
+    border-color: #0078d4;
+    box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.2);
+    background-color: #1e1e1e;
+}
+
+.shortcut-input.recording {
+    border-color: #d29922;
+    background-color: #3c3c00;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.modal-footer {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #3e3e42;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* Custom scrollbar styles - Dark theme and more visible */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #4a4a4a;
+    border-radius: 6px;
+    border: 2px solid #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #5a5a5a;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background-color: #6a6a6a;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #1a1a1a;
+}
+
+/* Firefox scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #4a4a4a #1a1a1a;
+}
+
+/* Specific scrollbar for output content - more visible */
+.output-content::-webkit-scrollbar {
+    width: 14px;
+}
+
+.output-content::-webkit-scrollbar-track {
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+}
+
+.output-content::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 7px;
+    border: 2px solid #1a1a1a;
+}
+
+.output-content::-webkit-scrollbar-thumb:hover {
+    background-color: #666;
+}
+
+.output-content::-webkit-scrollbar-thumb:active {
+    background-color: #777;
+}
+
+/* Specific scrollbar for stdin input - more visible */
+.stdin-input::-webkit-scrollbar {
+    width: 12px;
+}
+
+.stdin-input::-webkit-scrollbar-track {
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+}
+
+.stdin-input::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 6px;
+    border: 2px solid #1a1a1a;
+}
+
+.stdin-input::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.stdin-input::-webkit-scrollbar-thumb:active {
+    background-color: #666;
+}
+
+@media (max-width: 768px) {
+    .split-pane {
+        flex-direction: column;
+    }
+
+    .output-pane {
+        flex: 0 0 200px;
+        border-left: none;
+        border-top: 1px solid #444;
+    }
+
+    .toolbar {
+        padding: 6px 12px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .primary-btn {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    .modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .shortcut-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .shortcut-input-wrapper {
+        width: 100%;
+    }
+
+    .shortcut-input {
+        flex: 1;
+    }
+}

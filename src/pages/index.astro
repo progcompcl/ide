@@ -1,0 +1,126 @@
+---
+import '../styles/main.css';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>panda-edit - C++ Editor & Compiler</title>
+</head>
+<body>
+    <div id="all" class="horiz">
+        <!-- Clean Navigation Bar -->
+        <nav class="navbar">
+            <!-- Left Side - Action Buttons -->
+            <div class="navbar-left">
+                <button id="run" class="primary-btn run-btn" title="Compile and Run (F5)">
+                    <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    <span class="btn-text">Run</span>
+                </button>
+            </div>
+
+            <!-- Center - Brand -->
+            <div class="navbar-center">
+                <!-- <div class="branding">panda-edit</div> -->
+            </div>
+
+            <!-- Right Side - Status -->
+            <div class="navbar-right">
+                <div class="status-container">
+                    <div class="status-indicator" id="status-indicator"></div>
+                    <span class="status-text" id="status-text">Ready</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hidden file input -->
+        <input id="openInput" type="file" accept=".cpp,.c,.h,.hpp" hidden>
+
+        <!-- Theme Template (hidden, will be cloned by JavaScript) -->
+        <template id="theme-option-template">
+            <div class="theme-option" data-theme="">
+                <div class="theme-preview"></div>
+                <div class="theme-info">
+                    <div class="theme-name"></div>
+                    <div class="theme-description"></div>
+                </div>
+            </div>
+        </template>
+        <div id="layout"></div>
+    </div>
+
+    <!-- Shortcuts Modal -->
+    <div id="shortcuts-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Keyboard Shortcuts</h2>
+                <button id="close-shortcuts" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description">Customize your keyboard shortcuts. Click on a shortcut to change it, then press your desired key combination.</p>
+                <div id="shortcuts-list" class="shortcuts-list"></div>
+                <div class="modal-footer">
+                    <button id="reset-shortcuts" class="secondary-btn">Reset to Default</button>
+                    <button id="save-shortcuts" class="primary-btn">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Base URL configuration -->
+    <script is:inline define:vars={{ baseUrl: import.meta.env.BASE_URL }}>
+        window.BASE_URL = baseUrl;
+    </script>
+
+    <!-- Ace Editor from CDN -->
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/ace.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/mode-c_cpp.js"></script>
+    <!-- Load ALL themes -->
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-ambiance.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-chaos.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-clouds.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-clouds_midnight.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-cobalt.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-crimson_editor.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-dracula.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-dawn.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-dreamweaver.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-eclipse.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-github.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-gob.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-gruvbox.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-idle_fingers.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-iplastic.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-katzenmilch.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-kr_theme.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-kuroir.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-merbivore.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-merbivore_soft.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-mono_industrial.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-monokai.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-pastel_on_dark.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-solarized_dark.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-solarized_light.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-sqlserver.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-terminal.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-textmate.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-tomorrow.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-tomorrow_night.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-tomorrow_night_blue.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-tomorrow_night_bright.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-tomorrow_night_eighties.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-twilight.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-vibrant_ink.js"></script>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/theme-xcode.js"></script>
+
+    <!-- Local scripts -->
+    <script is:inline src={`${import.meta.env.BASE_URL}/scripts/shared.js`}></script>
+    <script is:inline src={`${import.meta.env.BASE_URL}/scripts/cpp_compiler.js`}></script>
+    <script is:inline src={`${import.meta.env.BASE_URL}/scripts/shortcuts.js`}></script>
+    <script is:inline src={`${import.meta.env.BASE_URL}/scripts/web.js`}></script>
+</body>
+</html>

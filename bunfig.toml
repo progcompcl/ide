@@ -1,0 +1,24 @@
+# Bun configuration file
+# https://bun.sh/docs/runtime/configuration
+
+[install]
+# Configure package installation
+registry = "https://registry.npmjs.org/"
+cache = true
+
+[install.lockfile]
+# Save lockfile to track dependencies
+save = true
+print = "yarn"
+
+[dev]
+# Development server configuration
+port = 4321
+
+[test]
+# Test configuration
+preload = []
+
+[run]
+# Shell to use for running scripts
+shell = "system"
