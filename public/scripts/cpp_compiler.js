@@ -14,9 +14,8 @@ class CppCompiler {
         statusManager.setStatus('Loading C++ compiler...', 'warning');
         outputManager.addOutput('Loading compiler...');
 
-        const baseUrl = window.BASE_URL || '/';
-        console.log('[CppCompiler] Creating Worker from compiler_worker.js with base:', baseUrl);
-        this.worker = new Worker(`${baseUrl}/scripts/compiler_worker.js`);
+        console.log('[CppCompiler] Creating Worker from compiler_worker.js');
+        this.worker = new Worker('/scripts/compiler_worker.js');
         console.log('[CppCompiler] Worker created');
 
         this.worker.onmessage = (event) => {
