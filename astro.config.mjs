@@ -3,8 +3,8 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://progcompcl.github.io',
-  base: '/ide',
+  site: 'https://ide.progcomp.cl',
+  base: '/',
   vite: {
     server: {
       headers: {
